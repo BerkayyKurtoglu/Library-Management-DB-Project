@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class EntryPage extends JFrame {
     private JButton organizorButton;
@@ -14,11 +16,15 @@ public class EntryPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setContentPane(mainPanel);
+
     }
 
     private void manageOrganizerButton() {
 
         organizorButton.setFocusable(false);
+        organizorButton.addActionListener(actionEvent -> {
+            //TODO: implement action of manage organizer button
+        });
 
     }
 
@@ -26,6 +32,10 @@ public class EntryPage extends JFrame {
     private void manageCleanerButton() {
 
         cleanerButton.setFocusable(false);
+        cleanerButton.addActionListener(actionEvent -> {
+            //TODO: implement action of cleanerButton
+        });
+
 
     }
 
