@@ -14,32 +14,28 @@ public class EntryPage extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setContentPane(mainPanel);
+        manageCleanerButton();
+        manageOrganizerButton();
 
     }
 
-// --Commented out by Inspection START (29.04.2022 18:37):
-//    private void manageOrganizerButton() {
-//
-//        organizorButton.setFocusable(false);
-//        organizorButton.addActionListener(actionEvent -> {
-//            //TODO: implement action of manage organizer button
-//        });
-//
-//    }
-// --Commented out by Inspection STOP (29.04.2022 18:37)
+    private void manageOrganizerButton() {
+
+        organizorButton.setFocusable(false);
+        organizorButton.addActionListener(actionEvent -> {
+            //TODO: implement action of manage organizer button
+        });
+
+    }
+
+    private void manageCleanerButton() {
+
+        cleanerButton.setFocusable(false);
+        cleanerButton.addActionListener(actionEvent -> {
+            //TODO: implement action of cleanerButton
+        });
 
 
-// --Commented out by Inspection START (29.04.2022 18:37):
-//    private void manageCleanerButton() {
-//
-//        cleanerButton.setFocusable(false);
-//        cleanerButton.addActionListener(actionEvent -> {
-//            //TODO: implement action of cleanerButton
-//        });
-//
-//
-//    }
-// --Commented out by Inspection STOP (29.04.2022 18:37)
-
+    }
 
 }
