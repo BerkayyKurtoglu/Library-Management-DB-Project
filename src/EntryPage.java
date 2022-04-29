@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class EntryPage extends JFrame {
     private JButton organizorButton;
@@ -19,25 +17,29 @@ public class EntryPage extends JFrame {
 
     }
 
-    private void manageOrganizerButton() {
-
-        organizorButton.setFocusable(false);
-        organizorButton.addActionListener(actionEvent -> {
-            //TODO: implement action of manage organizer button
-        });
-
-    }
-
-
-    private void manageCleanerButton() {
-
-        cleanerButton.setFocusable(false);
-        cleanerButton.addActionListener(actionEvent -> {
-            //TODO: implement action of cleanerButton
-        });
+// --Commented out by Inspection START (29.04.2022 18:37):
+//    private void manageOrganizerButton() {
+//
+//        organizorButton.setFocusable(false);
+//        organizorButton.addActionListener(actionEvent -> {
+//            //TODO: implement action of manage organizer button
+//        });
+//
+//    }
+// --Commented out by Inspection STOP (29.04.2022 18:37)
 
 
-    }
+// --Commented out by Inspection START (29.04.2022 18:37):
+//    private void manageCleanerButton() {
+//
+//        cleanerButton.setFocusable(false);
+//        cleanerButton.addActionListener(actionEvent -> {
+//            //TODO: implement action of cleanerButton
+//        });
+//
+//
+//    }
+// --Commented out by Inspection STOP (29.04.2022 18:37)
 
 
 }
