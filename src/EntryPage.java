@@ -11,6 +11,7 @@ public class EntryPage extends JFrame {
     private JLabel entryLabel;
     private JLabel tcLabel;
     private JButton cancelButton;
+    private Manager manager;
 
     ManagerDAOImpl managerDAO = new ManagerDAOImpl();
 
@@ -55,14 +56,24 @@ public class EntryPage extends JFrame {
                 try {
                     ResultSet resultSet = managerDAO.getSpecificManager(tc);
                     if (resultSet.next()) {
-                        System.out.printf("Entered for TC : %s\n", tc);
+                        //show managerPage
+                        manager = new Manager(
+                                tc,
+                                resultSet.getString("man_name"),
+                                Department.valueOf(resultSet.getString("man_department")));
+                        ManagerPage.getInstance(manager).setVisible(true);
+                        this.setVisible(false);
+                        //System.out.printf("Entered for TC : %s\n", tc);
                     }else {
+                        //show error message
                         JOptionPane.showMessageDialog(null, "No such TC found");
                     }
                 }catch (Exception e){
+                    //show error message
                     e.printStackTrace();
                 }
             }else{
+                //show error message
                 JOptionPane.showMessageDialog(null, "Please enter your TC");
             }
         });

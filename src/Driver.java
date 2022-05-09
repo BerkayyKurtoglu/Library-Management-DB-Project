@@ -6,23 +6,8 @@ import java.sql.Statement;
 
 public class Driver {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
 
-        Connection connection = MariaDBConnection.getMariaDbConnection();
-
-        if (connection != null) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `library management system`.manager");
-            while (resultSet.next()) {
-                System.out.println(
-                                resultSet.getString("man_name")+" "
-                                +resultSet.getString("man_tc")+" "
-                                +resultSet.getString("man_department")
-                );
-            }
-        }else {
-            System.out.println("Connection failed");
-        }
 
         try{
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -31,7 +16,6 @@ public class Driver {
         }
 
         SwingUtilities.invokeLater(EntryPage::new);
-
 
     }
 
