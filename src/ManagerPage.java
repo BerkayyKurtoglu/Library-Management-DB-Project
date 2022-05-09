@@ -55,10 +55,10 @@ public class ManagerPage extends JFrame {
 
             if (manager.getManagerDepartment() == Department.C) {
                 //show cleanerAddingPage
-                AddingPage.getInstance(Department.C).setVisible(true);
+                AddingPage.getInstance(Department.C,manager).setVisible(true);
             }else{
                 //show organizerAddingPage
-                AddingPage.getInstance(Department.O).setVisible(true);
+                AddingPage.getInstance(Department.O,manager).setVisible(true);
             }
 
         });

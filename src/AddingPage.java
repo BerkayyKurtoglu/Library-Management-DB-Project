@@ -2,24 +2,40 @@ import javax.swing.*;
 
 public class AddingPage extends JFrame {
     private JPanel mainPanel;
+    private JTextField nameTextField;
+    private JTextField idTextField;
+    private JTextField salaryTextField;
+    private JButton saveButton;
+    private JLabel entryLabel;
     private final Department department;
     private static AddingPage addingPage = null;
+    private final Manager manager;
+    private String managerId;
+    private String employeeId;
+    private String employeeName;
+    private float employeeSalary;
+    private final CleanerDAOImpl cleanerImpl = new CleanerDAOImpl();
 
     public static AddingPage getInstance(
-            Department department
+            Department department,
+            Manager manager
     ) {
         if (addingPage == null) {
-            addingPage = new AddingPage(department);
+            addingPage = new AddingPage(department, manager);
         }
         return addingPage;
     }
 
     public AddingPage(
-            Department department
-    ) {
+            Department department,
+            Manager manager
+    ){
         this.department = department;
+        this.manager = manager;
         manageEntryLabels();
         initComponents();
+
+        saveButtonClicked();
     }
 
     private void initComponents() {
@@ -34,9 +50,49 @@ public class AddingPage extends JFrame {
     private void manageEntryLabels(){
         if (department == Department.C) {
             this.setTitle("Cleaner Adding Page");
+            entryLabel.setText("Adding New Cleaner...");
         }else{
             this.setTitle("Organizer Adding Page");
+            entryLabel.setText("Adding New Organizer...");
         }
+    }
+
+    //Create function to save new employee named saveButtonClicked
+    private void saveButtonClicked() {
+
+        saveButton.addActionListener(event-> {
+            employeeId = idTextField.getText();
+            employeeName = nameTextField.getText();
+            employeeSalary = Float.parseFloat(salaryTextField.getText());
+
+            if (department == Department.C) {
+                //Create new cleaner
+                Cleaner cleaner = new Cleaner(
+                        employeeId,
+                        employeeName,
+                        employeeSalary,
+                        manager.getManagerTc()
+                );
+                //Add new cleaner to cleanerDAO
+                if(cleanerImpl.addCleaner(cleaner)){
+                    JOptionPane.showMessageDialog(null, "New Cleaner Added Successfully!");
+                }else {
+                    JOptionPane.showMessageDialog(null, "Failed to add new cleaner!");
+                }
+                setVisible(false);
+                ManagerPage.getInstance(manager).setVisible(true);
+            }else {
+                //Create new organizer
+                Organizer organizer = new Organizer(
+                        employeeId,
+                        employeeName,
+                        employeeSalary,
+                        managerId
+                );
+
+            }
+
+        });
     }
 
 

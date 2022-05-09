@@ -1,9 +1,8 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class CleanerImpl implements CleanerDAO {
+public class CleanerDAOImpl implements CleanerDAO {
 
     Statement statement;
     PreparedStatement preparedStatement;
