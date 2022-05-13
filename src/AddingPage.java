@@ -10,11 +10,11 @@ public class AddingPage extends JFrame {
     private final Department department;
     private static AddingPage addingPage = null;
     private final Manager manager;
-    private String managerId;
     private String employeeId;
     private String employeeName;
     private float employeeSalary;
     private final CleanerDAOImpl cleanerImpl = new CleanerDAOImpl();
+    private final OrganizerDAOImpl organizerImpl = new OrganizerDAOImpl();
 
     public static AddingPage getInstance(
             Department department,
@@ -87,8 +87,16 @@ public class AddingPage extends JFrame {
                         employeeId,
                         employeeName,
                         employeeSalary,
-                        managerId
+                        manager.getManagerTc()
                 );
+                //Add new organizer to organizerDAO
+                if(organizerImpl.addOrganizer(organizer)){
+                    JOptionPane.showMessageDialog(null, "New Organizer Added Successfully!");
+                }else {
+                    JOptionPane.showMessageDialog(null, "Failed to add new organizer!");
+                }
+                setVisible(false);
+                ManagerPage.getInstance(manager).setVisible(true);
 
             }
 
