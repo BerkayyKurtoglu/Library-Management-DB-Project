@@ -63,8 +63,9 @@ public class AddingPage extends JFrame {
         saveButton.addActionListener(event-> {
             employeeId = idTextField.getText();
             employeeName = nameTextField.getText();
-            employeeSalary = Float.parseFloat(salaryTextField.getText());
-
+            if (!salaryTextField.getText().isEmpty()) {
+                employeeSalary = Float.parseFloat(salaryTextField.getText());
+            }
             if (department == Department.C) {
                 //Create new cleaner
                 Cleaner cleaner = new Cleaner(
@@ -73,12 +74,18 @@ public class AddingPage extends JFrame {
                         employeeSalary,
                         manager.getManagerTc()
                 );
+                MistakeName mistakeName = cleanerImpl.addCleaner(cleaner);
                 //Add new cleaner to cleanerDAO
-                if(cleanerImpl.addCleaner(cleaner)){
+                if(mistakeName == MistakeName.NO_ERROR){
                     JOptionPane.showMessageDialog(null, "New Cleaner Added Successfully!");
+                }else if (mistakeName == MistakeName.EMPTY_FIELD_ERROR){
+                    JOptionPane.showMessageDialog(null, "Please fill all fields!");
+                }else if (mistakeName == MistakeName.TC_TYPE_ERROR){
+                    JOptionPane.showMessageDialog(null, "TC must be 11 characters!");
                 }else {
-                    JOptionPane.showMessageDialog(null, "Failed to add new cleaner!");
+                    JOptionPane.showMessageDialog(null, "Something went wrong!");
                 }
+
                 setVisible(false);
                 ManagerPage.getInstance(manager).setVisible(true);
             }else {
@@ -89,11 +96,17 @@ public class AddingPage extends JFrame {
                         employeeSalary,
                         manager.getManagerTc()
                 );
+                MistakeName mistakeName = organizerImpl.addOrganizer(organizer);
+                System.out.println(mistakeName);
                 //Add new organizer to organizerDAO
-                if(organizerImpl.addOrganizer(organizer)){
+                if(mistakeName == MistakeName.NO_ERROR){
                     JOptionPane.showMessageDialog(null, "New Organizer Added Successfully!");
+                }else if (mistakeName == MistakeName.EMPTY_FIELD_ERROR){
+                    JOptionPane.showMessageDialog(null, "Please fill all fields!");
+                } else if (mistakeName == MistakeName.TC_TYPE_ERROR){
+                    JOptionPane.showMessageDialog(null, "TC must be 11 characters!");
                 }else {
-                    JOptionPane.showMessageDialog(null, "Failed to add new organizer!");
+                    JOptionPane.showMessageDialog(null, "Something went wrong!");
                 }
                 setVisible(false);
                 ManagerPage.getInstance(manager).setVisible(true);

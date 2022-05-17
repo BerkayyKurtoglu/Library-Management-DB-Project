@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Calendar;
 
 public class Driver {
 
@@ -12,6 +15,12 @@ public class Driver {
         }
 
         SwingUtilities.invokeLater(EntryPage::new);
+        //Get current date with time and convert it to a java.sql.Time object
+        Date date = new Date(Calendar.getInstance().getTime().getTime());
+        Time time = new Time(Calendar.getInstance().getTime().getTime());
+        System.out.println(
+                date.toString() + " " + time.toString()
+        );
 
     }
 

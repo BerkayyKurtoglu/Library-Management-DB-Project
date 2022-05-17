@@ -13,7 +13,12 @@ public class EntryPage extends JFrame {
     private JButton cancelButton;
     private Manager manager;
 
+    private Department loginDepartment;
+
+    private CleanerDAOImpl cleanerDAO = new CleanerDAOImpl();
+    private OrganizerDAOImpl organizerDAO = new OrganizerDAOImpl();
     ManagerDAOImpl managerDAO = new ManagerDAOImpl();
+
 
     public EntryPage() {
 
@@ -53,25 +58,14 @@ public class EntryPage extends JFrame {
         logInButton.addActionListener(event->{
             String tc = listenTcTextField();
             if (tc != null) {
-                try {
-                    ResultSet resultSet = managerDAO.getSpecificManager(tc);
-                    if (resultSet.next()) {
-                        //show managerPage
-                        manager = new Manager(
-                                tc,
-                                resultSet.getString("man_name"),
-                                Department.valueOf(resultSet.getString("man_department")));
-                        ManagerPage.getInstance(manager).setVisible(true);
-                        this.setVisible(false);
-                        //System.out.printf("Entered for TC : %s\n", tc);
-                    }else {
-                        //show error message
-                        JOptionPane.showMessageDialog(null, "No such TC found");
-                    }
-                }catch (Exception e){
-                    //show error message
-                    e.printStackTrace();
+                if (loginDepartment == Department.M){
+                    logInForManager(tc);
+                } else if (loginDepartment == Department.C){
+                    logInForCleaner(tc);
+                } else if (loginDepartment == Department.O){
+                    logInForOrganizer(tc);
                 }
+
             }else{
                 //show error message
                 JOptionPane.showMessageDialog(null, "Please enter your TC");
@@ -82,18 +76,16 @@ public class EntryPage extends JFrame {
 
     private void organizerButtonClicked() {
         organizerButton.addActionListener(event -> {
-
-
-
+            showForLoggingIn("Organizer");
+            loginDepartment = Department.O;
         });
 
     }
 
     private void cleanerButtonClicked(){
         cleanerButton.addActionListener(event->{
-
-
-
+            showForLoggingIn("Cleaner");
+            loginDepartment = Department.C;
         });
 
 
@@ -102,6 +94,7 @@ public class EntryPage extends JFrame {
     private void managerButtonClicked() {
         managerButton.addActionListener(event -> {
             showForLoggingIn("Manager");
+            loginDepartment = Department.M;
         });
     }
 
@@ -139,6 +132,65 @@ public class EntryPage extends JFrame {
         managerButton.setVisible(true);
         cleanerButton.setVisible(true);
         organizerButton.setVisible(true);
+
+    }
+
+    private void logInForManager(
+            String tc
+    ){
+
+        try {
+            ResultSet resultSet = managerDAO.getSpecificManager(tc);
+            if (resultSet.next()) {
+                //show managerPage
+                manager = new Manager(
+                        tc,
+                        resultSet.getString("man_name"),
+                        Department.valueOf(resultSet.getString("man_department")));
+                ManagerPage.getInstance(manager).setVisible(true);
+                this.setVisible(false);
+                //System.out.printf("Entered for TC : %s\n", tc);
+            }else {
+                //show error message
+                JOptionPane.showMessageDialog(null, "No such TC found");
+            }
+        }catch (Exception e){
+            //show error message
+            e.printStackTrace();
+        }
+    }
+
+
+    private void logInForCleaner(
+            String tc
+    ){
+
+        MistakeName mistakeName = cleanerDAO.logInForCleaner(tc);
+        if (mistakeName == MistakeName.NO_ERROR){
+            //show cleanerPage
+            CleanerMainPage.getInstance(tc).setVisible(true);
+            this.setVisible(false);
+        }else if(mistakeName == MistakeName.NO_SUCH_TC_ERROR){
+            //show error message
+            JOptionPane.showMessageDialog(null, "No such TC found");
+        }
+
+
+    }
+
+    private void logInForOrganizer(
+            String tc
+    ){
+
+        MistakeName mistakeName = organizerDAO.logInForOrganizer(tc);
+        if(mistakeName == MistakeName.NO_ERROR){
+            //show organizerPage
+            OrganizerMainPage.getInstance(tc).setVisible(true);
+            this.setVisible(false);
+        }else if (mistakeName == MistakeName.NO_SUCH_TC_ERROR) {
+            //show error message
+            JOptionPane.showMessageDialog(null, "No such TC found");
+        }
 
     }
 

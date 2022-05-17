@@ -1,6 +1,7 @@
 public enum Department {
 
     C,
-    O
+    O,
+    M
 
 }

@@ -1,5 +1,7 @@
 public interface CleanerDAO {
 
-    boolean addCleaner(Cleaner cleaner);
+    MistakeName addCleaner(Cleaner cleaner);
+
+    MistakeName logInForCleaner(String tc);
 
 }
