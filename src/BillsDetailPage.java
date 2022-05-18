@@ -12,6 +12,7 @@ public class BillsDetailPage extends JFrame {
     private JLabel dateLabel;
     private JLabel timeLabel;
     private JTable table;
+    private JButton closeButton;
 
     private static BillsDetailPage instance = null;
     private BillsDAOImpl billsDAO = new BillsDAOImpl();
@@ -35,13 +36,14 @@ public class BillsDetailPage extends JFrame {
 
         this.billId = billId;
         setTitle("Bills Detail Page");
-        setSize(400, 200);
+        setSize(550, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
         setContentPane(mainPanel);
         manageTable();
+        clickedCloseButton();
 
     }
 
@@ -91,6 +93,19 @@ public class BillsDetailPage extends JFrame {
             }
 
         }
+
+    }
+
+    private void clickedCloseButton(){
+
+        closeButton.addActionListener(e -> {
+            try {
+                BillsMainPage.getInstance().setVisible(true);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            dispose();
+        });
 
     }
 

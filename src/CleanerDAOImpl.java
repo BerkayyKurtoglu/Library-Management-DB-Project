@@ -77,6 +77,54 @@ public class CleanerDAOImpl implements CleanerDAO {
         }
     }
 
+    @Override
+    public MistakeName addReport(Report report) {
+
+        if (connection != null){
+
+            try {
+
+                statement = connection.createStatement();
+                statement.executeQuery("INSERT INTO `cleaner report`" +
+                        "(space,date,time) VALUES" +
+                        " ('" + report.getPlace() + "', CURRENT_TIMESTAMP, CURRENT_TIME)");
+
+                return MistakeName.NO_ERROR;
+
+            }catch (Exception e){
+                e.printStackTrace();
+                return MistakeName.SQL_ERROR;
+            }
+
+        }
+        else {
+            return MistakeName.CONNECTION_ERROR;
+        }
+
+
+    }
+
+    @Override
+    public ResultSet getCleanedPlaces() {
+
+
+        if (connection != null) {
+            try {
+                statement = connection.createStatement();
+                return statement.executeQuery(
+                        "SELECT * FROM `cleaner report`"
+                );
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+        else {
+            return null;
+        }
+
+    }
     private MistakeName checkIfFieldsIsNotEmtyp(){
 
         if(cleanerTc.isEmpty() || cleanerName.isEmpty() || managerTc.isEmpty() || cleanerWage == 0){

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EntryPage extends JFrame {
     private JPanel mainPanel;
@@ -61,7 +62,11 @@ public class EntryPage extends JFrame {
                 if (loginDepartment == Department.M){
                     logInForManager(tc);
                 } else if (loginDepartment == Department.C){
-                    logInForCleaner(tc);
+                    try {
+                        logInForCleaner(tc);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else if (loginDepartment == Department.O){
                     logInForOrganizer(tc);
                 }
@@ -163,7 +168,7 @@ public class EntryPage extends JFrame {
 
     private void logInForCleaner(
             String tc
-    ){
+    ) throws SQLException {
 
         MistakeName mistakeName = cleanerDAO.logInForCleaner(tc);
         if (mistakeName == MistakeName.NO_ERROR){

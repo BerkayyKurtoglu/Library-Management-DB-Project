@@ -106,4 +106,9 @@ public class BillsMainPage extends JFrame {
 
     }
 
+    //set method for instance
+    public static void setInstance(BillsMainPage instance) {
+        BillsMainPage.instance = instance;
+    }
+
 }

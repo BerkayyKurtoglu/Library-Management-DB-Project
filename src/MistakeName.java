@@ -7,4 +7,7 @@ public enum MistakeName {
     SQL_ERROR,
     EMPTY_FIELD_ERROR,
     NO_SUCH_TC_ERROR,
+    PARSING_ERROR,
+    NO_SUCH_BOOK_ERROR,
+
 }
